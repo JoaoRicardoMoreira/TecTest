@@ -5,7 +5,7 @@
     <q-card class="my-card">
       <q-card-section>
         <div class="text-h6">Desafio Técnico Front-End - GIPHY App</div>
-        <div class="text-subtitle2">Desenvolvido por: [Seu Nome Aqui]</div> <!-- TODO: Replace with actual developer name -->
+        <div class="text-subtitle2">Desenvolvido por: João Moreira</div> 
       </q-card-section>
 
       <q-card-section class="q-pt-none">
@@ -33,8 +33,7 @@
       <q-separator />
 
       <q-card-actions align="right">
-        <!-- Add links if needed, e.g., to GitHub repo or LinkedIn -->
-        <!-- <q-btn flat label="GitHub" color="primary" href="[Your GitHub Link]" target="_blank" /> -->
+        <q-btn flat label="GitHub" color="primary" href="https://github.com/JoaoRicardoMoreira" target="_blank" />
       </q-card-actions>
     </q-card>
 
@@ -42,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
-// No specific script logic needed for this static page
+
 </script>
 
 <style scoped>
-/* Add component-specific styles here if needed */
+
 ul {
   list-style: disc;
   margin-left: 20px;

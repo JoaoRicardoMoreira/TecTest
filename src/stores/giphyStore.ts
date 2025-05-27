@@ -40,7 +40,7 @@ const GIPHY_API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
 
 export const useGiphyStore = defineStore('giphy', {
   state: (): GiphyState => ({
-    apiKey: GIPHY_API_KEY || '', // Ensure API key is loaded
+    apiKey: GIPHY_API_KEY || '', 
     trending: [],
     searchResults: [],
     favorites: LocalStorage.getItem('giphyFavorites') || [],
@@ -65,7 +65,7 @@ export const useGiphyStore = defineStore('giphy', {
         const response = await api.get('/gifs/trending', {
           params: {
             api_key: this.apiKey,
-            limit: 24, // Adjust limit as needed
+            limit: 24,
             rating: 'g'
           }
         });
@@ -93,7 +93,7 @@ export const useGiphyStore = defineStore('giphy', {
           params: {
             api_key: this.apiKey,
             q: query,
-            limit: 24, // Adjust limit as needed
+            limit: 24, 
             rating: 'g'
           }
         });
@@ -118,8 +118,8 @@ export const useGiphyStore = defineStore('giphy', {
                     api_key: this.apiKey,
                 }
             });
-            // Filter categories to get only top-level ones if needed, or adjust based on API structure
-            this.categories = response.data.data.filter((cat: Category) => cat.name !== 'actions'); // Example filter
+           
+            this.categories = response.data.data.filter((cat: Category) => cat.name !== 'actions'); 
         } catch (error) {
             console.error('Erro ao buscar categorias:', error);
             Notify.create({ type: 'negative', message: 'Falha ao buscar categorias.' });
@@ -135,12 +135,12 @@ export const useGiphyStore = defineStore('giphy', {
         }
         this.loading.categoryGifs = true;
         try {
-            // GIPHY API might use search for categories, adjust endpoint if needed
+           
             const response = await api.get('/gifs/search', {
                 params: {
                     api_key: this.apiKey,
-                    q: categoryName, // Use category name as search term
-                    limit: 24, // Adjust limit as needed
+                    q: categoryName, 
+                    limit: 24, 
                     rating: 'g'
                 }
             });

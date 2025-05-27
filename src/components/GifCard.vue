@@ -53,7 +53,6 @@ const toggleFavorite = () => {
 </script>
 
 <style scoped>
-/* Add any specific styles if needed, Tailwind classes are preferred */
 .aspect-w-1 { position: relative; padding-bottom: 100%; }
 .aspect-h-1 img { position: absolute; height: 100%; width: 100%; inset: 0px; object-fit: cover; }
 </style>

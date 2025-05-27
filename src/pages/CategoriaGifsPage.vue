@@ -3,17 +3,16 @@
     <q-btn flat icon="arrow_back" @click="$router.back()" label="Voltar para Categorias" class="mb-4" />
     <h1 class="text-2xl font-bold mb-4">GIFs da Categoria: {{ categoryNameDecoded }}</h1>
 
-    <!-- Loading Indicator -->
+   
     <div v-if="isLoading" class="flex justify-center items-center h-64">
       <q-spinner-dots color="primary" size="40px" />
     </div>
 
-    <!-- Error Message -->
     <div v-if="!isLoading && categoryGifs.length === 0" class="text-center text-gray-500 mt-8">
       Não foi possível carregar GIFs para esta categoria ou não há GIFs disponíveis.
     </div>
 
-    <!-- GIF Grid -->
+   
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
       <GifCard v-for="gif in categoryGifs" :key="gif.id" :gif="gif" />
     </div>
@@ -30,30 +29,30 @@ import GifCard from 'components/GifCard.vue';
 const giphyStore = useGiphyStore();
 const route = useRoute();
 
-// Get category name from route params
+
 const categoryName = computed(() => route.params.categoryName as string);
 const categoryNameDecoded = computed(() => decodeURIComponent(categoryName.value || ''));
 
-// Fetch GIFs for the category when the component mounts or category changes
+
 onMounted(() => {
   if (categoryName.value) {
     giphyStore.fetchGifsByCategory(categoryNameDecoded.value);
   }
 });
 
-// Watch for changes in the route parameter (if user navigates between categories directly)
+
 watch(categoryName, (newCategoryName) => {
   if (newCategoryName) {
     giphyStore.fetchGifsByCategory(decodeURIComponent(newCategoryName));
   }
 });
 
-// Get category GIFs and loading state from the store
+
 const categoryGifs = computed(() => giphyStore.categoryGifs);
 const isLoading = computed(() => giphyStore.loading.categoryGifs);
 
 </script>
 
 <style scoped>
-/* Add component-specific styles here if needed */
+
 </style>

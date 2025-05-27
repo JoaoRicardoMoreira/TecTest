@@ -1,44 +1,59 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <!-- Top Bar -->
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
-        <!-- Menu Button (for small screens) -->
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" class="lt-md" />
-
-        <!-- Logo and Title -->
-        <q-toolbar-title>
-          <q-avatar class="q-mr-sm">
-            <!-- Placeholder Logo - Replace with actual logo if available -->
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Giphy App Challenge
-        </q-toolbar-title>
-
-        <!-- Developer Name -->
-        <div class="q-mr-md text-caption">Desenvolvido por: [Seu Nome Aqui]</div> <!-- TODO: Replace with actual developer name -->
+  <q-layout view="hHh Lpr lFf">
+    <q-header elevated class="bg-blue-700 text-white">
+   <q-toolbar class="px-4 flex justify-between items-center">
+  <div class="flex items-center space-x-3">
+    <q-btn
+      flat
+      dense
+      round
+      icon="menu"
+      class="q-mr-sm"
+      @click="leftDrawerOpen = !leftDrawerOpen"
+    />
+    <img src="../assets/logo dev.png" alt="Logo" class="logo" />
+    <span class="text-lg font-bold">TESTE TECNICO</span>
+  </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-sm font-medium">João Moreira</span>
+          <q-avatar round size="md" color="white" text-color="blue-700" icon="account_circle" />
+        </div>
       </q-toolbar>
     </q-header>
-
-    <!-- Left Navigation Drawer -->
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      side="left"
+      class="bg-blue-900 text-white"
+    >
       <q-list>
-        <q-item-label header class="text-grey-8">
-          Menu Principal
+        <q-item-label header class="text-white font-semibold text-sm px-4 py-2">
+          Menu
         </q-item-label>
 
-        <!-- Dynamically generate menu links -->
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+      <q-item
+  v-for="link in essentialLinks"
+  :key="link.title"
+  :to="link.link"
+  exact
+  active-class="bg-white/10 text-white font-semibold"
+  class="transition-all duration-200 rounded-lg hover:bg-white/10 px-2"
+  clickable
+  v-ripple
+>
+  <q-item-section avatar>
+    <q-icon :name="link.icon" class="text-white" />
+  </q-item-section>
+
+  <q-item-section>
+    <q-item-label class="text-white text-sm font-medium tracking-wide">
+      {{ link.title }}
+    </q-item-label>
+  </q-item-section>
+</q-item>
       </q-list>
     </q-drawer>
-
-    <!-- Main Page Content Area -->
-    <q-page-container>
-      <!-- Vue Router will inject the active page component here -->
+    <q-page-container class="bg-gray-100 min-h-screen p-6">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -46,52 +61,37 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue'; // Component for menu items
 
-// Define the links for the navigation drawer
-const essentialLinks: EssentialLinkProps[] = [
+const leftDrawerOpen = ref(true);
+
+const essentialLinks = [
   {
     title: 'Home',
-    caption: 'Trending Gifs & Busca',
     icon: 'home',
     link: '/'
   },
   {
     title: 'Favoritos',
-    caption: 'Seus Gifs favoritos',
     icon: 'favorite',
     link: '/favoritos'
   },
   {
     title: 'Categorias',
-    caption: 'Explorar por categoria',
     icon: 'category',
     link: '/categorias'
   },
   {
     title: 'Sobre',
-    caption: 'Informações do Dev',
     icon: 'info',
     link: '/sobre'
   }
 ];
-
-// Reactive state for controlling the left drawer's visibility
-const leftDrawerOpen = ref(false)
-
-// Function to toggle the left drawer (used by the menu button)
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
 </script>
+<style scoped>
+.logo{
+  max-width: 90px;
+  max-height: 50px;
+}
 
-<style lang="scss">
-// Ensure Tailwind base styles are applied if not already globally configured
-// Note: Quasar handles Tailwind integration, but explicitly including them here can sometimes help
-// depending on the setup. Check quasar.config.js and css configuration.
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
 
-// Custom styles can be added here if needed
 </style>

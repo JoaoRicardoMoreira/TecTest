@@ -2,8 +2,8 @@
   "name": "ecommerce-web-app",
   "version": "0.0.1",
   "description": "A Quasar Project and on this project I learned vue 3 and related frameworks",
-  "productName": "Bojan Quasar App",
-  "author": "Bojan Pavlovic <bojanpavlovicoffice@gmail.com>",
+  "productName": "Tec Test",
+  "author": "Joao Moreira",
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
