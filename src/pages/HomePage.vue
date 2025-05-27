@@ -50,22 +50,26 @@ import GifCard from "components/GifCard.vue";
 const giphyStore = useGiphyStore();
 const searchQuery = ref("");
 
+// Busca os GIFs populares quando o componente é montado
 onMounted(() => {
   if (giphyStore.trending.length === 0) {
     giphyStore.fetchTrending();
   }
 });
 
+// Computed property para determinar quais GIFs exibir
 const gifsToDisplay = computed(() => {
   return searchQuery.value ? giphyStore.searchResults : giphyStore.trending;
 });
 
+// Computed property para verificar se os GIFs estão sendo carregados
 const isLoading = computed(() => {
   return searchQuery.value
     ? giphyStore.loading.search
     : giphyStore.loading.trending;
 });
 
+// Função para lidar com a busca de GIFs
 const handleSearch = (value: string | number | null) => {
   const query = typeof value === "string" ? value : "";
   if (query) {

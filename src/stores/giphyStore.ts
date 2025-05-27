@@ -55,6 +55,7 @@ export const useGiphyStore = defineStore("giphy", {
   }),
 
   actions: {
+    // Busca os GIFs em alta (trending) da Giphy
     async fetchTrending() {
       if (!this.apiKey) {
         Notify.create({
@@ -63,7 +64,9 @@ export const useGiphyStore = defineStore("giphy", {
         });
         return;
       }
+
       this.loading.trending = true;
+
       try {
         const response = await api.get("/gifs/trending", {
           params: {
@@ -72,6 +75,8 @@ export const useGiphyStore = defineStore("giphy", {
             rating: "g",
           },
         });
+
+        // Armazena os GIFs recebidos na variável trending
         this.trending = response.data.data;
       } catch (error) {
         console.error("Erro ao buscar trending GIFs:", error);
@@ -84,6 +89,7 @@ export const useGiphyStore = defineStore("giphy", {
       }
     },
 
+    // Busca GIFs a partir de um termo pesquisado
     async searchGifs(query: string) {
       if (!this.apiKey) {
         Notify.create({
@@ -92,11 +98,15 @@ export const useGiphyStore = defineStore("giphy", {
         });
         return;
       }
+
       if (!query) {
+        // Se a pesquisa estiver vazia, limpa os resultados
         this.searchResults = [];
         return;
       }
+
       this.loading.search = true;
+
       try {
         const response = await api.get("/gifs/search", {
           params: {
@@ -106,6 +116,8 @@ export const useGiphyStore = defineStore("giphy", {
             rating: "g",
           },
         });
+
+        // Armazena os resultados da pesquisa
         this.searchResults = response.data.data;
       } catch (error) {
         console.error("Erro ao buscar GIFs:", error);
@@ -115,6 +127,7 @@ export const useGiphyStore = defineStore("giphy", {
       }
     },
 
+    // Busca as categorias disponíveis na Giphy
     async fetchCategories() {
       if (!this.apiKey) {
         Notify.create({
@@ -123,7 +136,9 @@ export const useGiphyStore = defineStore("giphy", {
         });
         return;
       }
+
       this.loading.categories = true;
+
       try {
         const response = await api.get("/gifs/categories", {
           params: {
@@ -131,6 +146,7 @@ export const useGiphyStore = defineStore("giphy", {
           },
         });
 
+        // Filtra a categoria "actions", que será excluída
         this.categories = response.data.data.filter(
           (cat: Category) => cat.name !== "actions",
         );
@@ -145,6 +161,7 @@ export const useGiphyStore = defineStore("giphy", {
       }
     },
 
+    // Busca GIFs relacionados a uma categoria específica
     async fetchGifsByCategory(categoryName: string) {
       if (!this.apiKey) {
         Notify.create({
@@ -153,7 +170,9 @@ export const useGiphyStore = defineStore("giphy", {
         });
         return;
       }
+
       this.loading.categoryGifs = true;
+
       try {
         const response = await api.get("/gifs/search", {
           params: {
@@ -163,6 +182,8 @@ export const useGiphyStore = defineStore("giphy", {
             rating: "g",
           },
         });
+
+        // Armazena os GIFs da categoria
         this.categoryGifs = response.data.data;
       } catch (error) {
         console.error(
@@ -178,10 +199,14 @@ export const useGiphyStore = defineStore("giphy", {
       }
     },
 
+    // Adiciona um GIF aos favoritos
     addFavorite(gif: Gif) {
       if (!this.isFavorite(gif.id)) {
         this.favorites.push(gif);
+
+        // Salva os favoritos no armazenamento local
         LocalStorage.set("giphyFavorites", this.favorites);
+
         Notify.create({
           type: "positive",
           message: "GIF adicionado aos favoritos!",
@@ -189,12 +214,17 @@ export const useGiphyStore = defineStore("giphy", {
       }
     },
 
+    // Remove um GIF dos favoritos pelo ID
     removeFavorite(gifId: string) {
       this.favorites = this.favorites.filter((fav) => fav.id !== gifId);
+
+      // Atualiza os favoritos no armazenamento local
       LocalStorage.set("giphyFavorites", this.favorites);
+
       Notify.create({ type: "info", message: "GIF removido dos favoritos." });
     },
 
+    // Verifica se um GIF já está nos favoritos
     isFavorite(gifId: string): boolean {
       return this.favorites.some((fav) => fav.id === gifId);
     },

@@ -40,6 +40,7 @@ import { useGiphyStore } from "stores/giphyStore";
 const giphyStore = useGiphyStore();
 const router = useRouter();
 
+// Busca as categorias quando o componente é montado
 onMounted(() => {
   if (giphyStore.categories.length === 0) {
     giphyStore.fetchCategories();
@@ -49,6 +50,7 @@ onMounted(() => {
 const categories = computed(() => giphyStore.categories);
 const isLoading = computed(() => giphyStore.loading.categories);
 
+// Função para navegar para a página de GIFs da categoria
 const goToCategoryGifs = (categoryNameEncoded: string) => {
   router.push({
     name: "CategoriaGifs",

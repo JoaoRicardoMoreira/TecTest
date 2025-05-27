@@ -46,12 +46,14 @@ const categoryNameDecoded = computed(() =>
   decodeURIComponent(categoryName.value || ""),
 );
 
+// Busca GIFs pela categoria quando o componente é montado ou quando a categoria muda
 onMounted(() => {
   if (categoryName.value) {
     giphyStore.fetchGifsByCategory(categoryNameDecoded.value);
   }
 });
 
+// Observa mudanças na categoria e busca GIFs correspondentes
 watch(categoryName, (newCategoryName) => {
   if (newCategoryName) {
     giphyStore.fetchGifsByCategory(decodeURIComponent(newCategoryName));

@@ -27,6 +27,7 @@ import GifCard from "components/GifCard.vue";
 
 const giphyStore = useGiphyStore();
 
+// Propriedade computada para obter a lista de GIFs favoritos da store
 const favorites = computed(() => giphyStore.favorites);
 </script>
 
