@@ -1,5 +1,3 @@
-import { Notify } from 'quasar';
+import { Notify } from "quasar";
 
-export default async () => {
-  
-};
+export default async () => {};

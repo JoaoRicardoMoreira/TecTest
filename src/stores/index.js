@@ -1,5 +1,5 @@
-import { store } from 'quasar/wrappers'
-import { createPinia } from 'pinia'
+import { store } from "quasar/wrappers";
+import { createPinia } from "pinia";
 
 /*
  * If not building with SSR mode, you can
@@ -11,8 +11,7 @@ import { createPinia } from 'pinia'
  */
 
 export default store((/* { ssrContext } */) => {
-  const pinia = createPinia()
+  const pinia = createPinia();
 
-
-  return pinia
-})
+  return pinia;
+});
